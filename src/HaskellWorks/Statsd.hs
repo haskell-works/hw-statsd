@@ -1,10 +1,11 @@
-{-# LANGUAGE OverloadedStrings #-}
+-- {-# LANGUAGE OverloadedStrings #-}
 
 module HaskellWorks.Statsd where
 
 import           Control.Monad (unless)
 import           Control.Exception (try, throwIO)
 import qualified Data.ByteString            as BS
+import qualified Data.ByteString.Char8      as BSC
 import qualified GHC.IO.Exception           as G
 import           Network.Socket
 import qualified Network.Socket.ByteString  as NSBS
@@ -36,9 +37,9 @@ udpSink udpSocket = do
       Right _ -> udpSink udpSocket
 
 addressedMessages :: SockAddr -> Producer (SockAddr, BS.ByteString) IO ()
-addressedMessages sockAddr = do
-  yield (sockAddr, "Message 1\n")
-  yield (sockAddr, "Message 2\n")
+addressedMessages sockAddr = each ((\i -> (sockAddr, BSC.pack ("Message " ++ show i ++ "\n"))) `fmap` [1..1000000 :: Int])
+  -- yield (sockAddr, "Message 1\n")
+  -- yield (sockAddr, "Message 2\n")
 
 main :: IO ()
 main = do
