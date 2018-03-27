@@ -14,12 +14,12 @@ cabal.sandbox.config
 *.prof
 *.aux
 *.hp
+*.cabal
 
 /*.submodules
 /.stack-work/
 /result
 /deps
-/stack.yaml
 /*.json
 /*.json.ib
 /*.json.bp
