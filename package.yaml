@@ -1,0 +1,40 @@
+name: hw-statsd
+version: '0.0.0.1'
+synopsis: Primitive functions and data types
+description: Please see README.md
+category: Data
+author: John Ky
+maintainer: newhoggy@gmail.com
+copyright: 2016 John Ky
+license: BSD3
+github: haskell-works/hw-statsd
+homepage: http://github.com/haskell-works/hw-statsd#readme
+extra-source-files:
+- README.md
+ghc-options: -Wall
+dependencies:
+- base >=4 && <5
+- pipes
+library:
+  source-dirs: src
+  ghc-options:
+  - -O2
+  - -msse4.2
+  exposed-modules:
+  - HaskellWorks.Statsd
+  dependencies:
+  - bytestring
+  - network
+tests:
+  hw-statsd-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hspec
+    - hw-statsd
+    - QuickCheck
+stability: Experimental
